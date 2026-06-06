@@ -1,0 +1,22 @@
+name: Repo visualizer
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  visualize:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Genereer diagram
+        uses: githubocto/repo-visualizer@0.9.1
+        with:
+          output_file: diagram.svg
+          should_push: false        # NIET committen (anders is dat de default)
+
+      - name: Upload als artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: diagram             # exact deze naam gevraagd
+          path: diagram.sv
